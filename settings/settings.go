@@ -3,7 +3,6 @@ package settings
 import (
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"regexp"
 
@@ -20,29 +19,18 @@ var BaseDir string = homePath + "/.local/share/TemplateFilesManager"
 
 // путь до файлов установленной утилиты
 var FilesPath string = BaseDir + "/files"
-// путь до SQLite3 БД
-// var PathDB string = BaseDir + "/sqlite3.db"
-var PathDB string = "./sqlite3.db"
 
-
-// функция для обработки критических ошибок
-func DieIf(err error) {
-	if err != nil {
-		fatalLog := log.New(os.Stderr, "[FATAL]\t", log.Ldate|log.Ltime|log.Lshortfile)
-		fatalLog.Panic(err)
-	}
-}
 
 // получение выбранного редактора по умолчанию
 func GetSelectedEditor() (string, error) {
 	var emptyString string
 
+	// чтение файла, содержащего выбранный редактор по умолчанию
 	filePath := homePath + "/.selected_editor"
 	fileData, err := os.ReadFile(filePath)
 	if err != nil {
 		return emptyString, errors.New(fmt.Sprintf("File %q was not found!", filePath))
 	}
-
 	// парсинг пути к выбранному редактору из файла
 	// при найденной подстроке будет такое содержание reFoundSlice = [SELECTED_EDITOR="/bin/nano" /bin/nano]
 	reFoundSlice := regexp.MustCompile(`(?m)^SELECTED_EDITOR="?(.+?)"?$`).FindStringSubmatch(string(fileData))
