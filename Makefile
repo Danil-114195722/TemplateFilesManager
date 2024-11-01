@@ -1,4 +1,4 @@
-build_flags = CGO_ENABLED=1 CGO_CFLAGS="-D_LARGEFILE64_SOURCE" CGO_LDFLAGS="-D_LARGEFILE64_SOURCE"
+build_flags = 
 
 source = ./main.go
 

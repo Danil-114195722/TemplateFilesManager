@@ -20,5 +20,5 @@ func init() {
 	editCmd.Flags().StringP("name", "n", "", "File-template name (required)")
 	editCmd.MarkFlagRequired("name")
 	// флаг для определения тега файла, по умолчанию - default
-	editCmd.Flags().StringP("tag", "t", "default", "File-template tag")
+	editCmd.Flags().StringP("tag", "t", "default", "File-template tag (optional)")
 }

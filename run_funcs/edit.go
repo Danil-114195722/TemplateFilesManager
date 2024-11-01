@@ -7,8 +7,7 @@ import (
 	
 	"github.com/spf13/cobra"
 
-	"github.com/Danil-114195722/TemplateFilesManager/db"
-	"github.com/Danil-114195722/TemplateFilesManager/db/models"
+	"github.com/Danil-114195722/TemplateFilesManager/services"
 	"github.com/Danil-114195722/TemplateFilesManager/settings"
 )
 
@@ -23,11 +22,12 @@ func EditRunE(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	isExists, err := services.FileTemplateIsExists(nameFlagValue, tagFlagValue)
+	if err != nil {
+		return err
+	}
 	// если такого файла с таким тегом нет в БД
-	var file models.File
-	dbConnect := db.GetConnection()
-	selectResult := dbConnect.Where("name = ? AND tag = ?", nameFlagValue, tagFlagValue).First(&file)
-	if selectResult.Error != nil {
+	if !isExists {
 		fmt.Println("___Warning___")
 		fmt.Println("File-template with such name and tag does not exist!")
 		fmt.Printf("\nUse «template add -n %s -t %s» to create new file-template\n", nameFlagValue, tagFlagValue)
