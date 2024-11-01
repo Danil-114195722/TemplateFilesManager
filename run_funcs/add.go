@@ -3,12 +3,14 @@ package run_funcs
 import (
 	"errors"
 	"fmt"
+	"os"
 	"regexp"
 	
 	"github.com/spf13/cobra"
 
 	"github.com/Danil-114195722/TemplateFilesManager/db/models"
 	"github.com/Danil-114195722/TemplateFilesManager/db"
+	"github.com/Danil-114195722/TemplateFilesManager/settings"
 )
 
 func AddRunE(cmd *cobra.Command, args []string) error {
@@ -33,7 +35,10 @@ func AddRunE(cmd *cobra.Command, args []string) error {
 	dbConnect := db.GetConnection()
 	selectResult := dbConnect.Where("name = ? AND tag = ?", nameFlagValue, tagFlagValue).First(&file)
 	if selectResult.Error == nil { // NOT err
-		return errors.New("File with such name and tag already exists!")
+		fmt.Println("___Warning___")
+		fmt.Println("File-template with such name and tag already exists!")
+		fmt.Printf("\nUse «template edit -n %s -t %s» to edit created file-template\n", nameFlagValue, tagFlagValue)
+		return nil
 	}
 	
 	// создание новой записи файла в БД
@@ -44,12 +49,20 @@ func AddRunE(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	if tagFlagValue == "default" {
-		fmt.Printf("New file %q with default tag created successfully!\n", nameFlagValue)
-		fmt.Printf("\nUse «template edit -n %s» to edit created file\n", nameFlagValue)
-	} else {
-		fmt.Printf("New file %q with tag %q created successfully!\n", nameFlagValue, tagFlagValue)
-		fmt.Printf("\nUse «template edit -n %s -t %s» to edit created file\n", nameFlagValue, tagFlagValue)
+	// создание папки с названием файла в файловой системе
+	err = os.Mkdir(fmt.Sprintf("%s/%s", settings.FilesPath, nameFlagValue), 0775)
+	if err != nil && !os.IsExist(err) {
+		// return err
+		panic(err)
 	}
+	// создание файла с названием тега файла в файловой системе
+	_, err = os.Create(fmt.Sprintf("%s/%s/%s", settings.FilesPath, nameFlagValue, tagFlagValue))
+	if err != nil {
+		// return err
+		panic(err)
+	}
+
+	fmt.Printf("New file-template %q with tag %q created successfully!\n", nameFlagValue, tagFlagValue)
+	fmt.Printf("\nUse «template edit -n %s -t %s» to edit created file-template\n", nameFlagValue, tagFlagValue)
 	return nil
 }
