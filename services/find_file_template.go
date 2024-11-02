@@ -10,6 +10,22 @@ import (
 )
 
 
+// проверка файла на существование
+func FileIsExists(absPath string) (bool, error) {
+	_, err := os.Stat(absPath)
+	if err != nil {
+		// неизвестная ошибка
+		if !os.IsNotExist(err) {
+			return false, err
+		// файла не существует
+		} else {
+			return false, nil
+		}
+	}
+	// файл существует
+	return true, nil
+}
+
 // проверка тега файла-шаблона на существование
 func FileTemplateTagIsExists(name, tag string) (bool, error) {
 	fullFilePath := fmt.Sprintf("%s/%s/%s", settings.FilesPath, name, tag)
