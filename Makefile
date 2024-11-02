@@ -1,14 +1,6 @@
-build_flags = 
-
 source = ./main.go
+dest = ./build/template
 
-bin_name = template
-dest = "~/.local/share/TemplateFilesManager/$(bin_name)"
-
-
-
-build:
-	$(build_flags) go build -o $(bin_name) $(source)
 
 compile:
-	$(build_flags) go build -o $(dest) $(source)
+	go build -o $(dest) $(source)
