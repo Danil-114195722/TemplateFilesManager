@@ -2,7 +2,6 @@ package run_funcs
 
 import (
 	"fmt"
-	// "os"
 	"os/exec"
 	
 	"github.com/spf13/cobra"
