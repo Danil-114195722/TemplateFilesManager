@@ -35,9 +35,8 @@ func AddRunE(cmd *cobra.Command, args []string) error {
 	}
 	// если такой файл с таким тегом уже есть в БД
 	if isExists {
-		fmt.Println("___Warning___")
-		fmt.Println("File-template with such name and tag already exists!")
-		fmt.Printf("\nUse «template edit -n %s -t %s» to edit created file-template\n", nameFlagValue, tagFlagValue)
+		settings.WarningPrintf("WARNING: file-template with such name and tag already exists!\n")
+		settings.HintPrintf("\nHINT: use «template edit -n %s -t %s» to edit created file-template\n", nameFlagValue, tagFlagValue)
 		return nil
 	}
 
@@ -52,7 +51,7 @@ func AddRunE(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Printf("New file-template %q with tag %q created successfully!\n", nameFlagValue, tagFlagValue)
-	fmt.Printf("\nUse «template edit -n %s -t %s» to edit created file-template\n", nameFlagValue, tagFlagValue)
+	settings.SuccessPrintf("New file-template %q with tag %q created successfully!\n", nameFlagValue, tagFlagValue)
+	settings.HintPrintf("\nHINT: use «template edit -n %s -t %s» to edit created file-template\n", nameFlagValue, tagFlagValue)
 	return nil
 }

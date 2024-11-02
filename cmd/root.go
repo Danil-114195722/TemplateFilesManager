@@ -4,6 +4,8 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+
+	"github.com/Danil-114195722/TemplateFilesManager/settings"
 )
 
 
@@ -21,6 +23,21 @@ var rootCmd = &cobra.Command{
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
+		settings.ErrorPrintf("Error: %s\n\n", err.Error())
+
+		// поиск подкоманды, в которой произошла ошибка, по предоставленным утилите аргументам
+        currentCommand, _, err := rootCmd.Find(os.Args[1:])
+        if err == nil { // NOT err
+			// выводим справку для подкоманды, в которой произошла ошибка
+			currentCommand.Usage()
+        }
 		os.Exit(1)
 	}
+}
+
+func init() {
+	// отключение встроенного вывода ошибки
+	rootCmd.SilenceErrors = true
+	// отключение встроенного вывода справки об использовании при ошибке
+	rootCmd.SilenceUsage = true
 }

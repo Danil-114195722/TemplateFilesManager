@@ -28,9 +28,8 @@ func EditRunE(cmd *cobra.Command, args []string) error {
 	}
 	// если такого файла с таким тегом нет в БД
 	if !isExists {
-		fmt.Println("___Warning___")
-		fmt.Println("File-template with such name and tag does not exist!")
-		fmt.Printf("\nUse «template add -n %s -t %s» to create new file-template\n", nameFlagValue, tagFlagValue)
+		settings.WarningPrintf("WARNING: file-template with such name and tag does not exist!\n")
+		settings.HintPrintf("\nHINT: use «template add -n %s -t %s» to create new file-template\n", nameFlagValue, tagFlagValue)
 		return nil
 	}
 

@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 
+	"github.com/fatih/color"
 	"github.com/joho/godotenv"
 )
 
@@ -19,6 +20,16 @@ var BaseDir string = homePath + "/.local/share/TemplateFilesManager"
 
 // путь до файлов установленной утилиты
 var FilesPath string = BaseDir + "/files"
+
+
+// функция печати ошибки (красный цвет сообщения)
+var ErrorPrintf = color.New(color.FgRed).PrintfFunc()
+// функция печати предупреждения и подсказки (яркий жёлтый цвет сообщения)
+var WarningPrintf = color.New(color.FgHiYellow).PrintfFunc()
+// функция печати успеха (зелёный цвет сообщения)
+var SuccessPrintf = color.New(color.FgGreen).PrintfFunc()
+// функция печати подсказки (жёлтый цвет сообщения)
+var HintPrintf = color.New(color.FgYellow).PrintfFunc()
 
 
 // получение выбранного редактора по умолчанию
