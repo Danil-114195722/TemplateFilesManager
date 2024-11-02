@@ -12,7 +12,7 @@ import (
 )
 
 func EditRunE(cmd *cobra.Command, args []string) error {
-	// парсинг флагов имени и тега нового файла
+	// парсинг флагов имени и тега файла
 	nameFlagValue, err := cmd.Flags().GetString("name")
 	if err != nil {
 		return err
@@ -22,11 +22,11 @@ func EditRunE(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	isExists, err := services.FileTemplateIsExists(nameFlagValue, tagFlagValue)
+	isExists, err := services.FileTemplateTagIsExists(nameFlagValue, tagFlagValue)
 	if err != nil {
 		return err
 	}
-	// если такого файла с таким тегом нет в БД
+	// если такого файла с таким тегом нет в файловой системе
 	if !isExists {
 		settings.WarningPrintf("WARNING: file-template with such name and tag does not exist!\n")
 		settings.HintPrintf("\nHINT: use «template add -n %s -t %s» to create new file-template\n", nameFlagValue, tagFlagValue)

@@ -29,11 +29,11 @@ func AddRunE(cmd *cobra.Command, args []string) error {
 		return errors.New("Invalid file name!")
 	}
 
-	isExists, err := services.FileTemplateIsExists(nameFlagValue, tagFlagValue)
+	isExists, err := services.FileTemplateTagIsExists(nameFlagValue, tagFlagValue)
 	if err != nil {
 		return err
 	}
-	// если такой файл с таким тегом уже есть в БД
+	// если такой файл с таким тегом уже есть в файловой системе
 	if isExists {
 		settings.WarningPrintf("WARNING: file-template with such name and tag already exists!\n")
 		settings.HintPrintf("\nHINT: use «template edit -n %s -t %s» to edit created file-template\n", nameFlagValue, tagFlagValue)

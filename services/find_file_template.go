@@ -10,8 +10,8 @@ import (
 )
 
 
-// проверка файла-шаблона на существование
-func FileTemplateIsExists(name, tag string) (bool, error) {
+// проверка тега файла-шаблона на существование
+func FileTemplateTagIsExists(name, tag string) (bool, error) {
 	fullFilePath := fmt.Sprintf("%s/%s/%s", settings.FilesPath, name, tag)
 
 	fileInfo, err := os.Stat(fullFilePath)
@@ -27,6 +27,28 @@ func FileTemplateIsExists(name, tag string) (bool, error) {
 	// если файл является директорией
 	if fileInfo.IsDir() {
 		return false, errors.New(fmt.Sprintf("Found dir instead file at %q", fullFilePath))
+	}
+	// файл существует
+	return true, nil
+}
+
+// проверка файла-шаблона на существование
+func FileTemplateIsExists(name string) (bool, error) {
+	fullFilePath := fmt.Sprintf("%s/%s", settings.FilesPath, name)
+
+	fileInfo, err := os.Stat(fullFilePath)
+	if err != nil {
+		// неизвестная ошибка
+		if !os.IsNotExist(err) {
+			return false, err
+		// файла не существует
+		} else {
+			return false, nil
+		}
+	}
+	// если файл НЕ является директорией
+	if !fileInfo.IsDir() {
+		return false, errors.New(fmt.Sprintf("Found file instead dir at %q", fullFilePath))
 	}
 	// файл существует
 	return true, nil
