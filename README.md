@@ -31,4 +31,5 @@ source ~/.bashrc
 
 > ___1.___ If an error occurs during installation but command `bash ./manager.sh status` return answer like `installed` then "template utility" will not work
 > You should try to fix error and reinstall utility using first `bash ./manager.sh uninstall` and then `bash ./manager.sh install`
+> <br>
 > ___2.___ After successful installation not edit config for utility in `~/.bashrc`. Not try to uninstall utility manually. Use `bash ./manager.sh uninstall` for it
