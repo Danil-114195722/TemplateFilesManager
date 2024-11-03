@@ -78,3 +78,9 @@ template manage uninstall
 ```shell
 template completion
 ```
+
+
+## TODO
+
+#### 1. Add chmod for files-templates
+#### 2. Add support for create project-template from smth directory
