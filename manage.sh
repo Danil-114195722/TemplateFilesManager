@@ -16,7 +16,6 @@ function print_doc() {
     printf "\t%-20s %-15s\n" "uninstall" "Uninstall \"template utility\"."
     printf "\t%-20s %-15s\n" "status" "Show status of \"template utility\"."
     echo -e "\nDescription:\n"
-    printf "\t%-20s \n" "You can make this file executable and use it like «./manager.sh»."
     printf "\t%-20s \n" "To use \"template utility\" you need to install it with the command «./manager.sh install»."
     printf "\t%-20s \n" "To uninstall \"template utility\" use the command «./manager.sh install»."
     printf "\t%-20s \n" "To see if the \"template utility\" is installed, use «./manager.sh status»."
@@ -82,9 +81,12 @@ function compile_to_executable() {
         docker -v &> /dev/null
         exit_if_error "Docker is not installed. Use other way to compilation or install Docker and try again!"
         echo "Docker is installed. Continue..."
-        # check user in docker group
-        groups | grep docker &> /dev/null
-        exit_if_error "User not in docker group. Add user to docker group and try again or run installation with sudo!"
+        # check user in docker group (if user is not root)
+        user=$(whoami)
+        if [ "$user" != "root" ]; then
+            groups | grep docker &> /dev/null
+            exit_if_error "User not in docker group. Add user to docker group and try again or run installation with sudo!"
+        fi
 
         echo "Build docker image..."
         docker build -t template_utility "$basedir"

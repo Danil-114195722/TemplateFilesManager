@@ -18,7 +18,6 @@ COPY . .
 
 # disable CGO
 ENV CGO_ENABLED=0
-# compile
-# RUN go build -o /build/template ./main.go
 
+# compile
 CMD ["go", "build", "-o", "/build/template", "/go/src/github.com/Danil-114195722/TemplateFilesManager/main.go"]
