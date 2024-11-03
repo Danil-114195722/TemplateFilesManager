@@ -19,6 +19,7 @@ function print_doc_for_script() {
     printf "\t%-20s \n" "To use \"template utility\" you need to install it with the command «./manage.sh install»."
     printf "\t%-20s \n" "To uninstall \"template utility\" use the command «./manage.sh uninstall»."
     printf "\t%-20s \n" "To see if the \"template utility\" is installed, use «./manage.sh status»."
+    printf "\t%-20s \n" "\"template utility\" will install only for current user!"
     exit 0
 }
 
@@ -97,7 +98,7 @@ function compile_to_executable() {
         user=$(whoami)
         if [ "$user" != "root" ]; then
             groups | grep docker &> /dev/null
-            exit_if_error "User not in docker group. Add user to docker group and try again or run installation with sudo!"
+            exit_if_error "User is not in docker group. Add user to docker group and try again!"
         fi
 
         echo "Build docker image..."

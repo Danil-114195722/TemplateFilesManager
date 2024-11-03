@@ -43,7 +43,7 @@ template manage status
 template manage uninstall
 ```
 
-> `manage` subcommand is a hidden subcommand and you will not find it in help using `template --help`
+> `manage` subcommand provides all manage.sh commands needed after successful installation. So, you may remove cloned repo dir and use template utility with pleasure!
 
 ## ! Pay attention
 
