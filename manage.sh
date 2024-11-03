@@ -10,13 +10,18 @@ green_text="\033[32m"
 default_text="\033[0m"
 
 
+# print doc message (if arg was given to func then print "install" subcommand doc)
 function print_doc() {
-    echo -e "Usage:  bash ./manager.sh [command]\n"
-    printf "\t%-20s %-15s\n" "install" "Start installation \"template utility\" on your system."
+    echo -e "Usage:  ./manager.sh [command]\n"
+    if [ -n "$1" ]; then
+        printf "\t%-20s %-15s\n" "install" "Start installation \"template utility\" on your system."
+    fi
     printf "\t%-20s %-15s\n" "uninstall" "Uninstall \"template utility\"."
     printf "\t%-20s %-15s\n" "status" "Show status of \"template utility\"."
     echo -e "\nDescription:\n"
-    printf "\t%-20s \n" "To use \"template utility\" you need to install it with the command «./manager.sh install»."
+    if [ -n "$1" ]; then
+        printf "\t%-20s \n" "To use \"template utility\" you need to install it with the command «./manager.sh install»."
+    fi
     printf "\t%-20s \n" "To uninstall \"template utility\" use the command «./manager.sh install»."
     printf "\t%-20s \n" "To see if the \"template utility\" is installed, use «./manager.sh status»."
     exit 0
@@ -40,9 +45,10 @@ function print_success() {
 # exit with error if unexpected argument was given
 function unexpected_arg_error() {
     print_error "ERROR: unexpected argument \"$1\""
-    print_warning "HINT: use «bash ./manage.sh» for read help manual"
+    print_warning "HINT: use «./manage.sh» without args for read help manual"
     exit 1
 }
+
 
 # exit with error and print error message (first arg in func)
 function exit_if_error() {
@@ -144,6 +150,9 @@ function install() {
     exit_if_error "Please, check path \"$utility_dir\""
     echo "Moved executable to utility dir"
 
+    # cp manage.sh script to utility_dir
+    cp "$basedir/manage.sh" "$utility_dir"
+
     print_success "TemplateFilesManager installed successfully!"
 }
 
@@ -182,15 +191,32 @@ function status() {
 }
 
 
-# print instruction if script was run without argument
-if [ -z "$1" ]; then
-    print_doc
-fi
+# if utility is already installed and manager.sh was run like utility subcommand
+if [ "$basedir" == "$utility_dir" ]; then
+    # print instruction if script was run without argument
+    if [ -z "$1" ]; then
+        print_doc 
+    fi
 
-# select manager's mode
-case "$1" in
-    install) install;;
-    uninstall) uninstall;;
-    status) status;;
-    *) unexpected_arg_error "$@";;
-esac
+    # select manager's mode
+    case "$1" in
+        uninstall) uninstall;;
+        status) status;;
+        *)  print_error "ERROR: unexpected argument \"$1\""
+            print_warning "HINT: use «template manage» for read help manual"
+            exit 1;;
+    esac
+# if utility is not installed yet and manager.sh was run from repo clone dir
+else
+    # print instruction if script was run without argument
+    if [ -z "$1" ]; then
+        print_doc "print_install_subcommand_doc"
+    fi
+
+    case "$1" in
+        install) install;;
+        uninstall) uninstall;;
+        status) status;;
+        *) unexpected_arg_error "$@";;
+    esac
+fi

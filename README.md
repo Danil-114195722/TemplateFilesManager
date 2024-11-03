@@ -1,5 +1,9 @@
 # TemplateFilesManager
 
+## Requirements:
+### 1. OS is Ubuntu or Debian
+### 2. Installed Golang or Docker
+
 ## Installation Guide
 
 ### 1. Clone repo and go to it:
@@ -12,13 +16,13 @@ cd ./TemplateFilesManager
 ### 2. Run installation script:
 
 ```shell
-./manager.sh install
+./manage.sh install
 ```
 
 ### 3. If you got no errors, check status of utility:
 
 ```shell
-./manager.sh status
+./manage.sh status
 ```
 
 ### 4. Reboot OR logout OR open new shell to accept changes in `~/.bashrc`. Also may use:
@@ -27,9 +31,37 @@ cd ./TemplateFilesManager
 source ~/.bashrc
 ```
 
+### HINT: after successful installation you may use ./manage.sh from utility like a subcommand:
+
+```shell
+# Check status of utility
+template manage status
+
+# Uninstall utility
+template manage uninstall
+```
+
+> `manage` subcommand is a hidden subcommand and you will not find it in help using `template --help`
+
 ## ! Pay attention
 
-> ___1.___ If an error occurs during installation but command `./manager.sh status` return answer like `installed` then "template utility" will not work
-> You should try to fix error and reinstall utility using first `./manager.sh uninstall` and then `./manager.sh install`
+> ___1.___ If an error occurs during installation but command `./manage.sh status` return answer like `installed` then "template utility" will not work
 > <br>
-> ___2.___ After successful installation not edit config for utility in `~/.bashrc`. Not try to uninstall utility manually. Use `./manager.sh uninstall` for it.
+> You should try to fix error and reinstall utility using first `./manage.sh uninstall` and then `./manage.sh install`
+> <br><br>
+> ___2.___ After successful installation not edit config for utility in `~/.bashrc`. Not try to uninstall utility manually. Use `./manage.sh uninstall` or `template manage uninstall` for it.
+
+
+## Removal Guide
+
+### If you have not remove cloned repo you can uninstall the utility from cloned repo using:
+
+```shell
+./manage.sh uninstall
+```
+
+### You can also uninstall the utility from the utility itself:
+
+```shell
+template manage uninstall
+```
