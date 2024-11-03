@@ -24,13 +24,13 @@ func DeleteRunE(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	var completing string
+	var confirmation string
 	// удаление всех файлов-шаблонов
 	if allFlagValue && nameFlagValue == "" {
 		// запрашиваем подтверждение на удаление
 		fmt.Print("Are you sure you want to delete ALL files-templates? [y, n] ")
-		fmt.Scan(&completing)
-		if completing != "y" {
+		fmt.Scan(&confirmation)
+		if confirmation != "y" {
 			fmt.Println("Canceled")
 			return nil
 		}
@@ -53,8 +53,8 @@ func DeleteRunE(cmd *cobra.Command, args []string) error {
 	} else if allFlagValue && nameFlagValue != "" {
 		// запрашиваем подтверждение на удаление
 		fmt.Printf("Are you sure you want to delete all tags of %q file-template? [y, n] ", nameFlagValue)
-		fmt.Scan(&completing)
-		if completing != "y" {
+		fmt.Scan(&confirmation)
+		if confirmation != "y" {
 			fmt.Println("Canceled")
 			return nil
 		}
@@ -82,8 +82,8 @@ func DeleteRunE(cmd *cobra.Command, args []string) error {
 	} else {
 		// запрашиваем подтверждение на удаление
 		fmt.Printf("Are you sure you want to delete tag %q of %q file-template? [y, n] ", tagFlagValue, nameFlagValue)
-		fmt.Scan(&completing)
-		if completing != "y" {
+		fmt.Scan(&confirmation)
+		if confirmation != "y" {
 			fmt.Println("Canceled")
 			return nil
 		}

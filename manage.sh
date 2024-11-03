@@ -10,22 +10,28 @@ green_text="\033[32m"
 default_text="\033[0m"
 
 
-# print doc message (if arg was given to func then print "install" subcommand doc)
-function print_doc() {
-    echo -e "Usage:  ./manager.sh [command]\n"
-    if [ -n "$1" ]; then
-        printf "\t%-20s %-15s\n" "install" "Start installation \"template utility\" on your system."
-    fi
+function print_doc_for_script() {
+    echo -e "Usage:  ./manage.sh [command]\n"
+    printf "\t%-20s %-15s\n" "install" "Start installation \"template utility\" on your system."
     printf "\t%-20s %-15s\n" "uninstall" "Uninstall \"template utility\"."
     printf "\t%-20s %-15s\n" "status" "Show status of \"template utility\"."
     echo -e "\nDescription:\n"
-    if [ -n "$1" ]; then
-        printf "\t%-20s \n" "To use \"template utility\" you need to install it with the command «./manager.sh install»."
-    fi
-    printf "\t%-20s \n" "To uninstall \"template utility\" use the command «./manager.sh install»."
-    printf "\t%-20s \n" "To see if the \"template utility\" is installed, use «./manager.sh status»."
+    printf "\t%-20s \n" "To use \"template utility\" you need to install it with the command «./manage.sh install»."
+    printf "\t%-20s \n" "To uninstall \"template utility\" use the command «./manage.sh uninstall»."
+    printf "\t%-20s \n" "To see if the \"template utility\" is installed, use «./manage.sh status»."
     exit 0
 }
+
+function print_doc_for_utility_subcommand() {
+    echo -e "Usage:  template manage [command]\n"
+    printf "\t%-20s %-15s\n" "uninstall" "Uninstall \"template utility\"."
+    printf "\t%-20s %-15s\n" "status" "Show status of \"template utility\"."
+    echo -e "\nDescription:\n"
+    printf "\t%-20s \n" "To uninstall \"template utility\" use the command « template manage uninstall»."
+    printf "\t%-20s \n" "To see if the \"template utility\" is installed, use «template manage status»."
+    exit 0
+}
+
 
 # print error message with red color (output string is first arg in func)
 function print_error() {
@@ -195,7 +201,7 @@ function status() {
 if [ "$basedir" == "$utility_dir" ]; then
     # print instruction if script was run without argument
     if [ -z "$1" ]; then
-        print_doc 
+        print_doc_for_utility_subcommand 
     fi
 
     # select manager's mode
@@ -210,7 +216,7 @@ if [ "$basedir" == "$utility_dir" ]; then
 else
     # print instruction if script was run without argument
     if [ -z "$1" ]; then
-        print_doc "print_install_subcommand_doc"
+        print_doc_for_script
     fi
 
     case "$1" in

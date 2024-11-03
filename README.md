@@ -1,8 +1,10 @@
 # TemplateFilesManager
 
+
 ## Requirements:
 ### 1. OS is Ubuntu or Debian
 ### 2. Installed Golang or Docker
+
 
 ## Installation Guide
 
@@ -54,14 +56,25 @@ template manage uninstall
 
 ## Removal Guide
 
-### If you have not remove cloned repo you can uninstall the utility from cloned repo using:
+### 1. (1st way) If you have not remove cloned repo you can uninstall the utility from cloned repo using:
 
 ```shell
 ./manage.sh uninstall
 ```
 
-### You can also uninstall the utility from the utility itself:
+### 1. (2nd way) You can also uninstall the utility from the utility itself:
 
 ```shell
 template manage uninstall
+```
+
+### 2. Reboot OR logout OR open new shell to accept changes in `~/.bashrc`.
+
+
+## Other features
+
+### You can add autocompletion (created by `cobra` package) for template utility using:
+
+```shell
+template completion
 ```

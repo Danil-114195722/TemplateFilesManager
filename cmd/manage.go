@@ -9,9 +9,9 @@ import (
 // manageCmd represents the manage command
 var manageCmd = &cobra.Command{
 	Use:   "manage",
+	Short: "Provides manage.sh funcs like \"status\" and \"uninstall\"",
 	Long: `Provides manage.sh funcs like status and uninstall
   Use «template manage» to get help from manage.sh`,
-	Hidden: true,
 	RunE: run_funcs.ManageRunE,
 }
 
