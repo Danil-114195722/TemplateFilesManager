@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Danil-114195722/TemplateFilesManager/cmd"
-	"github.com/Danil-114195722/TemplateFilesManager/settings"
+	"github.com/ej-you/TemplateFilesManager/cmd"
+	"github.com/ej-you/TemplateFilesManager/settings"
 )
 
 

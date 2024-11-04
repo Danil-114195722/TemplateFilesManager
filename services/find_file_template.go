@@ -6,7 +6,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/Danil-114195722/TemplateFilesManager/settings"
+	"github.com/ej-you/TemplateFilesManager/settings"
 )
 
 

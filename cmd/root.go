@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Danil-114195722/TemplateFilesManager/settings"
+	"github.com/ej-you/TemplateFilesManager/settings"
 )
 
 

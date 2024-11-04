@@ -3,7 +3,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/Danil-114195722/TemplateFilesManager/run_funcs"
+	"github.com/ej-you/TemplateFilesManager/run_funcs"
 )
 
 // удаление файлов-шаблонов и их тегов

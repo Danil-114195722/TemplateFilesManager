@@ -7,8 +7,8 @@ import (
 	
 	"github.com/spf13/cobra"
 
-	"github.com/Danil-114195722/TemplateFilesManager/services"
-	"github.com/Danil-114195722/TemplateFilesManager/settings"
+	"github.com/ej-you/TemplateFilesManager/services"
+	"github.com/ej-you/TemplateFilesManager/settings"
 )
 
 func EditRunE(cmd *cobra.Command, args []string) error {

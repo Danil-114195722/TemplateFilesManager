@@ -1,4 +1,4 @@
-module github.com/Danil-114195722/TemplateFilesManager
+module github.com/ej-you/TemplateFilesManager
 
 go 1.22.2
 

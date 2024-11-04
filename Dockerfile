@@ -2,8 +2,8 @@ FROM golang:1.22.4-alpine3.20
 
 # set up workdir
 RUN cd /go/src
-RUN mkdir -p ./github.com/Danil-114195722/TemplateFilesManager
-WORKDIR /go/src/github.com/Danil-114195722/TemplateFilesManager
+RUN mkdir -p ./github.com/ej-you/TemplateFilesManager
+WORKDIR /go/src/github.com/ej-you/TemplateFilesManager
 # set up build dir
 RUN mkdir /build
 
@@ -20,4 +20,4 @@ COPY . .
 ENV CGO_ENABLED=0
 
 # compile
-CMD ["go", "build", "-o", "/build/template", "/go/src/github.com/Danil-114195722/TemplateFilesManager/main.go"]
+CMD ["go", "build", "-o", "/build/template", "/go/src/github.com/ej-you/TemplateFilesManager/main.go"]

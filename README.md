@@ -11,7 +11,7 @@
 ### 1. Clone repo and go to it:
 
 ```shell
-git clone https://github.com/Danil-114195722/TemplateFilesManager.git
+git clone https://github.com/ej-you/TemplateFilesManager.git
 cd ./TemplateFilesManager
 ```
 
